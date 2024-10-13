@@ -15,6 +15,8 @@ enum TYPE {
     KING = 0
 };
 
+
+
 const std::map<TYPE, std::string> pieceImagesDark = {
     {PAWN, "Chess_pdt60.png"},
     {BISHOP, "Chess_bdt60.png"},

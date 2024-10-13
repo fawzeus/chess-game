@@ -4,6 +4,7 @@
 
 int main (){
     Game game;
+    Piece queen(KING,0,0,0);
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Chess Game");
     while(window.isOpen()){
@@ -13,8 +14,9 @@ int main (){
                     window.close();
                 }
             }
-            window.clear();
+            window.clear( sf::Color(87,65,47));
             game.draw_board(window);
+            queen.draw(window);
             window.display();
             
     }

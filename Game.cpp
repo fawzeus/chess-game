@@ -8,9 +8,12 @@ void Game::draw_board(sf::RenderWindow &window){
             sf::Vector2f position(pos_x,pos_y);
             sf::RectangleShape rectangle(sf::Vector2f(SQUARE_SIZE, SQUARE_SIZE));
             rectangle.setPosition(position);
-            rectangle.setFillColor(sf::Color::Transparent);
+            if((i+j)%2==0)
+                rectangle.setFillColor( sf::Color(220,220,220));
+            else 
+                rectangle.setFillColor(sf::Color(50,205,50));
             // Set the outline color (e.g., black) and thickness
-            rectangle.setOutlineColor(sf::Color::White);
+            rectangle.setOutlineColor(sf::Color::Black);
             rectangle.setOutlineThickness(2);  // Adjust the thickness if necessary
             //highlight.setFillColor(sf::Color::Red);
             window.draw(rectangle);
