@@ -8,8 +8,8 @@ const int SQUARE_SIZE = 60;
 #include <map>
 enum TYPE {
     PAWN = 1,
-    BISHOP = 3,
     KNIGHT = 3,
+    BISHOP = 4,
     ROOK = 5,
     QUEEN = 9,
     KING = 0

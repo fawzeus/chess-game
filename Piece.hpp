@@ -12,6 +12,8 @@ class Piece{
     public:
         Piece(enum TYPE type, int x, int y, int color);
         void draw(sf::RenderWindow &window);
+        void set_position(int x,int y);
+        sf::Vector2i get_position(void);
 };
 
 

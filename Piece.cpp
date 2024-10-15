@@ -22,3 +22,12 @@ Piece::Piece(enum TYPE type, int x, int y, int color)
 void Piece::draw(sf::RenderWindow &window){
     window.draw(sprite);
 }
+
+void Piece::set_position(int x, int y){
+    this->x=x;
+    this->y=y;
+}
+
+sf::Vector2i Piece::get_position(void){
+    return  sf::Vector2i(x,y);
+}

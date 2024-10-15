@@ -4,8 +4,6 @@
 
 int main (){
     Game game;
-    Piece queen(KING,0,0,0);
-
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Chess Game");
     while(window.isOpen()){
         sf::Event event;
@@ -13,10 +11,15 @@ int main (){
                 if (event.type == sf::Event::Closed) {
                     window.close();
                 }
+                else if(event.type == sf::Event::MouseButtonPressed){
+                    sf::Vector2i mouse_pos =  sf::Mouse::getPosition(window);
+                    game.select_piece(mouse_pos);
+                    //printf("(%d,%d)\n",mouse_pos.x,mouse_pos.y);
+                }
             }
             window.clear( sf::Color(87,65,47));
             game.draw_board(window);
-            queen.draw(window);
+            game.draw_pieces(window);
             window.display();
             
     }
