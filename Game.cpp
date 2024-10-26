@@ -8,7 +8,9 @@ void Game::draw_board(sf::RenderWindow &window){
             sf::Vector2f position(pos_x,pos_y);
             sf::RectangleShape rectangle(sf::Vector2f(SQUARE_SIZE, SQUARE_SIZE));
             rectangle.setPosition(position);
-            if((i+j)%2==0)
+            if(selected_piece!=NULL and selected_piece->get_position().x==i and selected_piece->get_position().y==j)
+                rectangle.setFillColor( sf::Color(255,0,0));
+            else if((i+j)%2==0)
                 rectangle.setFillColor( sf::Color(220,220,220));
             else 
                 rectangle.setFillColor(sf::Color(50,205,50));
@@ -57,7 +59,7 @@ Game::Game(){
     //init kings
     board[4][7] = new Piece(KING,4,7,0);
     board[4][0] = new Piece(KING,4,0,1);
-    
+    print_grid();
 
 }
 
@@ -72,27 +74,55 @@ void Game::draw_pieces(sf::RenderWindow &window){
 }
 
 void Game::select_piece(sf::Vector2i mouse_pos){
-    puts("called!");
+    print_grid();
+    //puts("called!");
     int x = mouse_pos.x-50,y=mouse_pos.y-50;
     if(x<0 or y<0) return;
     x = x/SQUARE_SIZE;
     y = y/SQUARE_SIZE;
+    //printf("x = %d , y = %d",x,y);
     if(!(x>=0 and y>=0 and x<=7 and y<=7))return;
+    printf("clicked (%d,%d)\n",x,y);
     //printf("(%d,%d)\n",x,y);
-    if(selected_piece!=NULL){
-        puts("entered!");
-        if (board[y][x] == NULL){
-            puts("moved !!");
-            selected_piece->set_position(x,y);
-            sf::Vector2i old_pos = selected_piece->get_position();
-            board[old_pos.y][old_pos.x] = NULL;
-            board[y][x] = selected_piece;
-            selected_piece = NULL;
-        }
+    if(selected_piece==NULL and board[x][y]==NULL) {
+        puts("returned");
+        return;
     }
-    else if(board[x][y]!=NULL){
-        puts("selected");
-        printf("(%d,%d)\n",x,y);
-        selected_piece = board[y][x];
+    else if (selected_piece != NULL) {
+        // Attempting to move the selected piece to an empty position
+        if (board[x][y] == NULL) {
+            // Store old position
+            sf::Vector2i old_pos = selected_piece->get_position();
+
+            // Move piece to new position and update board array
+            selected_piece->set_position(x, y);
+            board[old_pos.y][old_pos.x] = NULL;
+            board[x][y] = selected_piece;
+
+            // Deselect piece
+            selected_piece = NULL;
+
+            puts("Piece moved!");
+            printf("New position: (%d,%d)\n", x, y);
+        }
+    } else if (board[x][y] != NULL) {
+        // Select the piece at the clicked position
+        selected_piece = board[x][y];
+        puts("Piece selected");
+        printf("Position: (%d,%d)\n", x, y);
+    }
+}
+
+void Game::print_grid(){
+    for(int i=0;i<8;i++){
+        for(int j=0;j<8;j++){
+            if(board[j][i]!=NULL){
+                printf("in position (%d,%d) there is a %d\n",i,j,board[j][i]->get_type());
+            }
+            else{
+                printf("pos (%d,%d)\n",i,j);
+            }
+        }
+        puts("");
     }
 }

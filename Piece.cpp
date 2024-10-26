@@ -24,10 +24,20 @@ void Piece::draw(sf::RenderWindow &window){
 }
 
 void Piece::set_position(int x, int y){
+    puts("changed!");
     this->x=x;
     this->y=y;
+    sf::FloatRect bounds = sprite.getGlobalBounds();
+    sprite.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
+    float posX = static_cast<float>(x * SQUARE_SIZE) + SQUARE_SIZE / 2.0f+50;
+    float posY = static_cast<float>(y * SQUARE_SIZE) + SQUARE_SIZE / 2.0f+50;
+    sprite.setPosition(posX, posY);
 }
 
 sf::Vector2i Piece::get_position(void){
     return  sf::Vector2i(x,y);
+}
+
+enum TYPE Piece::get_type(){
+    return type;
 }

@@ -14,6 +14,7 @@ class Game {
         void select_piece(sf::Vector2i mouse_pos);
         void draw_board(sf::RenderWindow &window);
         void draw_pieces(sf::RenderWindow &window);
+        void print_grid();
 
 };
 

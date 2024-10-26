@@ -14,6 +14,7 @@ class Piece{
         void draw(sf::RenderWindow &window);
         void set_position(int x,int y);
         sf::Vector2i get_position(void);
+        enum TYPE get_type(void);
 };
 
 
